@@ -1,0 +1,28 @@
+<!Create a student registration form. Create functions to perform the following checks:
+a. Roll number is a 7-digit numeric value
+b. Name should be an alphabetical value(String)
+c. Non-empty fields like DOB>
+<html>
+    <head>
+        <title>
+            Create a student registration form. Create functions to perform the following checks:
+a. Roll number is a 7-digit numeric value
+b. Name should be an alphabetical value(String)
+c. Non-empty fields like DOB
+        </title>
+        <script src='Q13.js' type="text/javascript">
+        </script>
+    </head>
+    <body>
+    <marquee  bgcolor='blue'><font size='20%' color='red'>Registration End date 23/04/2018 09:00 am</font></marquee>
+    <h1 align='center'><font color='green'>Shivaji College</h1>
+    <h2 align='center'>NAC Accrigated A grade</font></h2>
+    <form onsubmit="validate(this)">
+        Name:<input type='text' placeholder="Your full name" name='name' id='name'><br><br>
+        DOB:<input type='date' placeholder='dd/mm/yyyy' name='date' id='date'><br><br>
+        Roll No:<input type='text' placeholder="roll number" name='rollnumber' id='rollnumber'>
+        <input type='submit'>
+        <input type='reset'>
+    </form>
+    </body>
+</html>

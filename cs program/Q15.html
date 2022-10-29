@@ -1,0 +1,24 @@
+<!Write a java script
+a. To change the colour of text using SetTimeOut()
+b. To move an image across screen using SetInterval()>
+<html>
+    <head>
+        <title>
+            Write a java script
+		a. To change the colour of text using SetTimeOut()
+		b. To move an image across screen using SetInterval()
+        </title>
+        <script>
+            function change(th){
+            document.getElementById('h').style.color='red';
+            }
+            function changeColor(this_){
+            setTimeout('change();',5000);
+            }
+            setInterval('alert("hello")',5);
+        </script>
+    </head>
+    <body>
+        <h1 onclick='changeColor(this);' id='h'>Click me and wait for 5 sec</h1>
+    </body>
+</html>

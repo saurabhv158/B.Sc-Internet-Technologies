@@ -1,0 +1,29 @@
+<!Implement a static password protection.>
+<html>
+	<head>
+	<title>Static Password Protection</title>
+		<script>
+			function check()
+			{
+				var user = document.getElementById("Username").value;
+				var pass = document.getElementById("Password").value;
+				
+				if (user=="admin" && pass=="password")
+				{	alert("Successful Login");	}
+				else 
+				{	alert("Please Try Again");	}
+			}
+		</script>
+	</head>
+	<body>
+            <marquee  bgcolor='blue'><font size='20%' color='red'>Registration End date 23/04/2018 09:00 am</font></marquee>
+            <h1 align='center'><font color='green'>Keshav Mahavidayalaya</h1>
+            <h2 align='center'>NACC Accrigated A grade</font></h2>
+		<form>
+			Enter Username : <input type="text" id="Username"> <br><br>
+			Enter Password : <input type="password" id="Password"> <br><br>
+			<input type="button" value="Submit" onClick="check()">
+		</form>
+	</body>
+</html>
+</html>

@@ -1,0 +1,91 @@
+package javaapplication;
+
+import java.sql.*;
+
+public class JDBCApplication {
+
+    public static void main(String[] args) throws SQLException {
+        String url = "jdbc:mysql://localhost/college";
+        String userID = "root";
+        String password = "root";
+        String printrow;
+        Statement DataRequest;
+        ResultSet Results;
+        Connection Db = null;
+        int noOfRows;
+        try {
+            Class.forName("java.sql.Driver");
+            Db = DriverManager.getConnection(url, userID, password);
+        } catch (ClassNotFoundException error) {
+            System.err.println("Unable to load the JDBC bridge." + error);
+            System.exit(1);
+        } catch (SQLException error) {
+            System.err.println("Cannot connect to the database." + error);
+            System.exit(2);
+        }
+        try {
+            //Ans 16.(a) starts here.
+            String query1 = "UPDATE Teacher SET FirstName = CONCAT ('Dr.', FirstName) WHERE FirstName = 'Rajat'";  
+            DataRequest = Db.createStatement();                                                                    
+            DataRequest.executeUpdate(query1); //Ans 16.(a) ends here.
+            //Ans 16.(b) starts here.
+            query1 = "UPDATE Teacher SET FirstName = CONCAT ('Dr.', FirstName) WHERE FirstName = ? AND FirstName NOT LIKE 'Dr.%'"; 
+            PreparedStatement pstatement = Db.prepareStatement(query1);                                                            
+            String query2 = "SELECT FirstName FROM Teacher";                                                                       
+            Results = DataRequest.executeQuery(query2);
+            while (Results.next()) {
+                pstatement.setString(1, Results.getString(1));
+                pstatement.executeUpdate();
+            }
+            pstatement.close(); //Ans 16.(b) ends here.
+            query2 = "SELECT * FROM Teacher";
+            Results = DataRequest.executeQuery(query2);
+            System.out.println("ID  First Name  Last Name");
+            while (Results.next()) {
+                printrow = Results.getString(1) + " " + Results.getString(2) + " " + Results.getString(3);
+                System.out.println(printrow);
+            }
+            //Ans 16.(c) starts here.
+            query2 = "DELETE FROM Student WHERE ID = 11732";
+            DataRequest.executeUpdate(query2);  //Ans 16.(c) ends here.
+        } catch (SQLException error) {
+            System.err.println("Data display error." + error);
+            System.exit(4);
+        }
+        try {
+            //Ans 16.(d) starts here.
+            DataRequest = Db.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            String query = "SELECT * FROM Student WHERE FirstName = 'Shubham'";
+            Results = DataRequest.executeQuery(query);
+            Results.moveToInsertRow();
+            Results.updateInt(1, 11700);
+            Results.updateString(2, "Tom");
+            Results.updateString(3, "Smith");
+            Results.insertRow();
+            Results.updateInt(1, 11701);
+            Results.updateString(2, "John");
+            Results.updateString(3, "Smith");
+            Results.insertRow();
+            //Ans 16.(d) ends here.
+            System.out.println("\nID  First Name  Last Name");
+            while (Results.next()) {
+                printrow = Results.getString(1) + " " + Results.getString(2) + " " + Results.getString(3);
+                System.out.println(printrow);
+            }
+            //Ans 17 starts here.
+            query = "{ CALL count_row (?)}";
+            CallableStatement cstatement = Db.prepareCall(query);
+            cstatement.registerOutParameter(1, Types.INTEGER);
+            cstatement.execute();
+            noOfRows = cstatement.getInt(1);
+            System.out.println("\nThe no. of rows in the 'Student' table are " + noOfRows);
+            cstatement.close();
+            //Ans 17 ends here.
+            DataRequest.close();
+        } catch (SQLException error) {
+            System.err.println("SQL error. The rollno already exists.");
+            System.exit(3);
+        }
+        Db.close();
+    }
+}

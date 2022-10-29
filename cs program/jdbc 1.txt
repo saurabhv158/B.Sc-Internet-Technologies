@@ -1,0 +1,8 @@
+/* This will be used to run the query corresponding to question 17 */
+mysql> delimiter /
+mysql> create procedure count_row (out row_num int)
+    -> begin
+    -> select count(1) into row_num
+    -> from student;
+    -> end;
+    -> /

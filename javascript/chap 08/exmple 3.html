@@ -1,0 +1,20 @@
+<html>
+	<head>
+		<title>Creating and using user defind function</title>
+		<script language="JavaScript">
+			var name ="";
+			function hello()
+			{
+				name = prompt('Enter your Name','Name');
+				alert('Greeting '+name+',Welcome to my page!');
+			}
+			function goodbye()
+			{
+				alert('GoodBye'+name+',sorry to see you go!');
+			}
+		</script>
+	</head>
+	<body onLoad="hello();" onUnload="goodbye();">
+		<img src="images/Pinkwhit.git.jpg"/>
+	</body>
+</html>
